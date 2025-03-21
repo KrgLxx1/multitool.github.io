@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Данные о файлах для скачивания
 const files = [
     {
-        name: "CcleanerV2",
+        name: "CleanerV2",
         description: "Программа для очистки компьютера от временных файлов",
         size: "12.5 МБ",
         icon: "fa-broom",
-        downloadUrl: "files/Cleaner.zip"
+        downloadUrl: "files/ccleaner.exe"
     }
 ];
 

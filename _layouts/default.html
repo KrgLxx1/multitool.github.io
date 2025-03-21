@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NekorimnasTools</title>
-    <meta name="description" content="MultiTool | Files">
+    <title>CcleanerV2</title>
+    <meta name="description" content="Очистка | Файлы">
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Экран загрузки -->
     <div class="loader-container" id="loaderContainer">
         <div class="loader"></div>
     </div>
@@ -19,37 +19,69 @@
     <div id="background3d"></div>
 
     <div class="wrapper" id="mainContent">
+        <!-- Навигационная панель -->
+        <nav class="top-nav">
+            <div class="nav-logo">
+                <i class="fas fa-broom"></i> CcleanerV2
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about"><i class="fas fa-info-circle"></i> О программе</a></li>
+                <li><a href="#downloads"><i class="fas fa-download"></i> Загрузки</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"><i class="fas fa-user"></i> Портфолио</a>
+                    <div class="dropdown-content">
+                        <a href="https://github.com/nekorimnas" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://guns.lol/nekorimnas" target="_blank"><i class="fas fa-link"></i> guns.lol/nekorimnas</a>
+                        <a href="https://discord.gg/zvcYZjCRa6" target="_blank"><i class="fab fa-discord"></i> Discord сервер</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
         <header>
-            <h1><i class="fas fa-tools"></i> NekorimnasTools</h1>
-            <p>MultiTool | Files</p>
-            
-            <!-- 3D Cube Animation -->
-            <div class="scene">
-                <div class="cube">
-                    <div class="cube-face front"><i class="fas fa-download fa-3x"></i></div>
-                    <div class="cube-face back"><i class="fas fa-cog fa-3x"></i></div>
-                    <div class="cube-face right"><i class="fas fa-wrench fa-3x"></i></div>
-                    <div class="cube-face left"><i class="fas fa-code fa-3x"></i></div>
-                    <div class="cube-face top"><i class="fas fa-tools fa-3x"></i></div>
-                    <div class="cube-face bottom"><i class="fas fa-laptop-code fa-3x"></i></div>
-                </div>
+            <div class="header-content">
+                <h1><i class="fas fa-broom"></i> CcleanerV2</h1>
+                <p>Очистка компьютера | Файлы</p>
             </div>
         </header>
 
-        <section>
-            <h2><i class="fas fa-download"></i> Downloads</h2>
+        <section id="downloads">
+            <h2><i class="fas fa-download"></i> Загрузки</h2>
             <div id="downloadCards">
                 <!-- Download cards will be generated dynamically -->
             </div>
         </section>
 
-        <section>
-            <h2><i class="fas fa-info-circle"></i> About NekorimnasTools</h2>
-            <p>NekorimnasTools is a comprehensive multitool suite designed to provide various utilities for users. Download the latest version to access all features.</p>
+        <section id="about">
+            <h2><i class="fas fa-info-circle"></i> О программе CcleanerV2</h2>
+            <p>CcleanerV2 - мощная утилита для очистки компьютера от временных файлов и оптимизации работы системы. Скачайте последнюю версию, чтобы получить доступ ко всем функциям.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-tachometer-alt fa-3x"></i>
+                    <h3>Оптимизация производительности</h3>
+                    <p>Увеличивает скорость работы компьютера, удаляя ненужные файлы</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt fa-3x"></i>
+                    <h3>Защита приватности</h3>
+                    <p>Удаляет следы вашей активности и защищает конфиденциальные данные</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-hdd fa-3x"></i>
+                    <h3>Освобождение места</h3>
+                    <p>Освобождает гигабайты дискового пространства</p>
+                </div>
+            </div>
         </section>
 
         <footer>
-            <p>&copy; 2025 NekorimnasTools. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://github.com/nekorimnas" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://guns.lol/nekorimnas" target="_blank"><i class="fas fa-link"></i></a>
+                <a href="https://discord.gg/zvcYZjCRa6" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+            <p>&copy; 2025 CcleanerV2. Все права защищены.</p>
         </footer>
     </div>
 

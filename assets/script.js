@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+    camera.position.z = 30;
     
     // Set up renderer
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({ 
+        alpha: true, 
+        antialias: true 
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
     
@@ -27,42 +30,79 @@ document.addEventListener('DOMContentLoaded', function() {
         renderer.domElement.style.pointerEvents = 'none';
     }
     
-    // Create particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particleCount = 500;
+    // Create a grid of points
+    const createWavyGrid = () => {
+        const geometry = new THREE.PlaneGeometry(60, 60, 50, 50);
+        
+        // Custom shader material for wavy gradient effect
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                colorA: { value: new THREE.Color(0x7c4dff) },
+                colorB: { value: new THREE.Color(0x2d1e5e) }
+            },
+            vertexShader: `
+                uniform float time;
+                varying vec2 vUv;
+                varying float vElevation;
+                
+                void main() {
+                    vUv = uv;
+                    vec3 pos = position;
+                    
+                    // Add wave effect
+                    float elevation = sin(pos.x * 0.1 + time) * sin(pos.y * 0.1 + time) * 2.0;
+                    pos.z += elevation;
+                    vElevation = elevation;
+                    
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 colorA;
+                uniform vec3 colorB;
+                varying vec2 vUv;
+                varying float vElevation;
+                
+                void main() {
+                    float intensity = (vElevation + 2.0) / 4.0;
+                    vec3 color = mix(colorB, colorA, intensity + 0.2 * sin(vUv.x * 10.0) * sin(vUv.y * 10.0));
+                    gl_FragColor = vec4(color, 0.7);
+                }
+            `,
+            wireframe: false,
+            transparent: true
+        });
+        
+        // Create mesh from geometry and material
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.x = -Math.PI / 2;
+        mesh.position.y = -5;
+        return { mesh, material };
+    };
     
-    const posArray = new Float32Array(particleCount * 3);
+    // Create the grid
+    const { mesh, material } = createWavyGrid();
+    scene.add(mesh);
     
-    // Generate random positions
-    for (let i = 0; i < particleCount * 3; i += 3) {
-        // Positions - spread particles in a spherical pattern
-        posArray[i] = (Math.random() - 0.5) * 15;
-        posArray[i+1] = (Math.random() - 0.5) * 15;
-        posArray[i+2] = (Math.random() - 0.5) * 15;
-    }
+    // Add ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
     
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    
-    // Material for particles
-    const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.05,
-        color: 0x7c4dff,
-        transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending
-    });
-    
-    // Create particle system
-    const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particleSystem);
+    // Create a directional light
+    const dirLight = new THREE.DirectionalLight(0x7c4dff, 1);
+    dirLight.position.set(10, 10, 10);
+    scene.add(dirLight);
     
     // Animation loop
     function animate() {
         requestAnimationFrame(animate);
         
-        // Rotate particle system
-        particleSystem.rotation.x += 0.0005;
-        particleSystem.rotation.y += 0.0005;
+        // Update time value for wave effect
+        material.uniforms.time.value += 0.01;
+        
+        // Slowly rotate the scene
+        mesh.rotation.z += 0.001;
         
         // Render scene
         renderer.render(scene, camera);
@@ -77,42 +117,37 @@ document.addEventListener('DOMContentLoaded', function() {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
+    
+    // Интерактивное движение по наведению мыши
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        
+        mesh.rotation.x = -Math.PI / 2 + mouseY * 0.1;
+        mesh.rotation.z = mouseX * 0.1;
+    });
 });
 
-// Files data with real file paths
+// Данные о файлах для скачивания
 const files = [
     {
-        name: "NekorimnasTools MultiTool v1.0",
-        description: "Main application with all tools included",
-        size: "15.2 MB",
-        icon: "fa-wrench",
-        downloadUrl: "files/tool.exe"
-    },
-    {
-        name: "Source Code",
-        description: "GitHub repository with complete source code",
-        size: "8.7 MB",
-        icon: "fa-code",
-        downloadUrl: "files/source.zip"
-    },
-    {
-        name: "Documentation",
-        description: "User manual and API documentation",
-        size: "2.3 MB",
-        icon: "fa-book",
-        downloadUrl: "files/info.txt"
+        name: "CcleanerV2",
+        description: "Программа для очистки компьютера от временных файлов",
+        size: "12.5 МБ",
+        icon: "fa-broom",
+        downloadUrl: "files/Cleaner.zip"
     }
 ];
 
-// Loading screen
+// Экран загрузки
 window.addEventListener('load', function() {
     setTimeout(function() {
         document.getElementById('loaderContainer').classList.add('hidden');
         document.getElementById('mainContent').classList.add('fadeIn');
-    }, 2000); // 2 seconds loading time
+    }, 2000); // 2 секунды на загрузку
 });
 
-// Generate download cards
+// Генерация карточек для скачивания
 document.addEventListener('DOMContentLoaded', function() {
     const downloadCardsContainer = document.getElementById('downloadCards');
     
@@ -140,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         description.textContent = file.description;
         
         const size = document.createElement('p');
-        size.innerHTML = `<small>Size: ${file.size}</small>`;
+        size.innerHTML = `<small>Размер: ${file.size}</small>`;
         
         contentDiv.appendChild(title);
         contentDiv.appendChild(description);
@@ -154,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const downloadIcon = document.createElement('i');
         downloadIcon.className = 'fas fa-download';
         downloadLink.appendChild(downloadIcon);
-        downloadLink.appendChild(document.createTextNode(' Download'));
+        downloadLink.appendChild(document.createTextNode(' Скачать'));
         
         card.appendChild(iconDiv);
         card.appendChild(contentDiv);

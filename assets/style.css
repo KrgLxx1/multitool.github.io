@@ -64,18 +64,21 @@ header, section, footer {
     flex-grow: 1;
 }
 
-.download-card .download-btn {
+.download-btn {
     background-color: #7c4dff;
-    color: white;
+    color: white !important;
     border: none;
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block;
+    text-decoration: none !important;
 }
 
-.download-card .download-btn:hover {
+.download-btn:hover {
     background-color: #9066ff;
+    color: white !important;
 }
 
 .loader-container {

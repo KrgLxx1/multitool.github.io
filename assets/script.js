@@ -116,22 +116,50 @@ window.addEventListener('load', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const downloadCardsContainer = document.getElementById('downloadCards');
     
+    // Очистим контейнер карточек перед добавлением, чтобы избежать дублирования
+    downloadCardsContainer.innerHTML = '';
+    
     files.forEach(file => {
         const card = document.createElement('div');
         card.className = 'download-card';
-        card.innerHTML = `
-            <div class="icon">
-                <i class="fas ${file.icon}"></i>
-            </div>
-            <div class="content">
-                <h3>${file.name}</h3>
-                <p>${file.description}</p>
-                <p><small>Size: ${file.size}</small></p>
-            </div>
-            <a href="${file.downloadUrl}" class="download-btn" download>
-                <i class="fas fa-download"></i> Download
-            </a>
-        `;
+        
+        // Создаём элементы вручную вместо использования innerHTML для лучшего контроля
+        const iconDiv = document.createElement('div');
+        iconDiv.className = 'icon';
+        const icon = document.createElement('i');
+        icon.className = `fas ${file.icon}`;
+        iconDiv.appendChild(icon);
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'content';
+        
+        const title = document.createElement('h3');
+        title.textContent = file.name;
+        
+        const description = document.createElement('p');
+        description.textContent = file.description;
+        
+        const size = document.createElement('p');
+        size.innerHTML = `<small>Size: ${file.size}</small>`;
+        
+        contentDiv.appendChild(title);
+        contentDiv.appendChild(description);
+        contentDiv.appendChild(size);
+        
+        const downloadLink = document.createElement('a');
+        downloadLink.href = file.downloadUrl;
+        downloadLink.className = 'download-btn';
+        downloadLink.setAttribute('download', ''); // Добавляем атрибут download для скачивания
+        
+        const downloadIcon = document.createElement('i');
+        downloadIcon.className = 'fas fa-download';
+        downloadLink.appendChild(downloadIcon);
+        downloadLink.appendChild(document.createTextNode(' Download'));
+        
+        card.appendChild(iconDiv);
+        card.appendChild(contentDiv);
+        card.appendChild(downloadLink);
+        
         downloadCardsContainer.appendChild(card);
     });
 }); 

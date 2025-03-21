@@ -79,35 +79,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Files data - you can add more files or fetch them dynamically
+// Files data with real file paths
 const files = [
     {
         name: "NekorimnasTools MultiTool v1.0",
         description: "Main application with all tools included",
         size: "15.2 MB",
         icon: "fa-wrench",
-        downloadUrl: "#"
-    },
-    {
-        name: "MultiTool Setup",
-        description: "Installation package for Windows",
-        size: "18.5 MB",
-        icon: "fa-windows",
-        downloadUrl: "#"
+        downloadUrl: "files/tool.exe"
     },
     {
         name: "Source Code",
         description: "GitHub repository with complete source code",
         size: "8.7 MB",
         icon: "fa-code",
-        downloadUrl: "#"
+        downloadUrl: "files/source.zip"
     },
     {
         name: "Documentation",
         description: "User manual and API documentation",
         size: "2.3 MB",
         icon: "fa-book",
-        downloadUrl: "#"
+        downloadUrl: "files/info.txt"
     }
 ];
 
@@ -135,20 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>${file.description}</p>
                 <p><small>Size: ${file.size}</small></p>
             </div>
-            <button class="download-btn" data-url="${file.downloadUrl}">
+            <a href="${file.downloadUrl}" class="download-btn" download>
                 <i class="fas fa-download"></i> Download
-            </button>
+            </a>
         `;
         downloadCardsContainer.appendChild(card);
-    });
-
-    // Add click event to download buttons
-    document.querySelectorAll('.download-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const url = this.dataset.url;
-            // Replace with actual download logic
-            alert('Downloading file from: ' + url);
-            // window.location.href = url; // Uncomment for actual downloads
-        });
     });
 }); 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nekorimnas Tools</title>
+    <meta name="description" content="Полезные программы | Разработки">
+    <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Экран загрузки -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+    </div>
+
+    <!-- 3D Background Container -->
+    <div id="background3d"></div>
+
+    <div class="wrapper" id="mainContent">
+        <!-- Навигационная панель -->
+        <nav class="top-nav">
+            <div class="nav-logo">
+                <i class="fas fa-tools"></i> Nekorimnas Tools
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about"><i class="fas fa-info-circle"></i> О проекте</a></li>
+                <li><a href="#downloads"><i class="fas fa-download"></i> Загрузки</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"><i class="fas fa-user"></i> Портфолио</a>
+                    <div class="dropdown-content">
+                        <a href="https://github.com/nekorimnas" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://guns.lol/nekorimnas" target="_blank"><i class="fas fa-link"></i> guns.lol/nekorimnas</a>
+                        <a href="https://discord.gg/zvcYZjCRa6" target="_blank"><i class="fab fa-discord"></i> Discord сервер</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-tools"></i> Nekorimnas Tools</h1>
+                <p>Полезные программы и инструменты</p>
+            </div>
+        </header>
+
+        <section id="downloads">
+            <h2><i class="fas fa-download"></i> Загрузки</h2>
+            <div id="downloadCards">
+                <!-- Download cards will be generated dynamically -->
+            </div>
+        </section>
+
+        <section id="about">
+            <h2><i class="fas fa-info-circle"></i> О проекте Nekorimnas Tools</h2>
+            <p>Nekorimnas Tools - коллекция программ и инструментов для различных целей. Здесь вы найдете как полезные утилиты для повседневного использования, так и программы, созданные в образовательных целях.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-tachometer-alt fa-3x"></i>
+                    <h3>Производительность</h3>
+                    <p>Инструменты для улучшения работы вашего компьютера</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt fa-3x"></i>
+                    <h3>Безопасность</h3>
+                    <p>Утилиты для обеспечения безопасности и защиты данных</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap fa-3x"></i>
+                    <h3>Образование</h3>
+                    <p>Программы, созданные в образовательных целях</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="https://github.com/nekorimnas" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://guns.lol/nekorimnas" target="_blank"><i class="fas fa-link"></i></a>
+                <a href="https://discord.gg/zvcYZjCRa6" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+            <p>&copy; 2025 Nekorimnas Tools. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script src="{{ '/assets/script.js' | relative_url }}"></script>
+</body>
+</html> 

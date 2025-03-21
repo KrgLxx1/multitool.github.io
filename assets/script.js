@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Данные о файлах для скачивания
 const files = [
     {
-        name: "CleanerV2",
+        name: "Nekorimnas Cleaner",
         description: "Программа для очистки компьютера от временных файлов",
         size: "12.5 МБ",
         icon: "fa-broom",
-        downloadUrl: "files/ccleaner.exe"
+        downloadUrl: "files/Cleaner.zip"
     }
 ];
 

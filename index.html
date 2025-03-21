@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NekorimnasTools</title>
+    <meta name="description" content="MultiTool | Files">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+    /* Critical dark theme styles */
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    header, section, footer {
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .wrapper {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: #e0e0e0;
+    }
+    
+    a {
+        color: #7c4dff;
+        text-decoration: none;
+    }
+    
+    .download-card {
+        background-color: #252525;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #333333;
+    }
+    
+    .download-card .icon {
+        font-size: 2rem;
+        margin-right: 15px;
+        color: #7c4dff;
+    }
+    
+    .download-card .content {
+        flex-grow: 1;
+    }
+    
+    .download-card .download-btn {
+        background-color: #7c4dff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+    </div>
+
+    <!-- 3D Background Container -->
+    <div id="background3d"></div>
+
+    <div class="wrapper" id="mainContent">
+        <header>
+            <h1><i class="fas fa-tools"></i> NekorimnasTools</h1>
+            <p>MultiTool | Files</p>
+            
+            <!-- 3D Cube Animation -->
+            <div class="scene">
+                <div class="cube">
+                    <div class="cube-face front"><i class="fas fa-download fa-3x"></i></div>
+                    <div class="cube-face back"><i class="fas fa-cog fa-3x"></i></div>
+                    <div class="cube-face right"><i class="fas fa-wrench fa-3x"></i></div>
+                    <div class="cube-face left"><i class="fas fa-code fa-3x"></i></div>
+                    <div class="cube-face top"><i class="fas fa-tools fa-3x"></i></div>
+                    <div class="cube-face bottom"><i class="fas fa-laptop-code fa-3x"></i></div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2><i class="fas fa-download"></i> Downloads</h2>
+            <div id="downloadCards">
+                <!-- Download cards will be generated dynamically -->
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-info-circle"></i> About NekorimnasTools</h2>
+            <p>NekorimnasTools is a comprehensive multitool suite designed to provide various utilities for users. Download the latest version to access all features.</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 NekorimnasTools. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Files data - you can add more files or fetch them dynamically
+        const files = [
+            {
+                name: "NekorimnasTools MultiTool v1.0",
+                description: "Main application with all tools included",
+                size: "15.2 MB",
+                icon: "fa-wrench",
+                downloadUrl: "#"
+            },
+            {
+                name: "MultiTool Setup",
+                description: "Installation package for Windows",
+                size: "18.5 MB",
+                icon: "fa-windows",
+                downloadUrl: "#"
+            },
+            {
+                name: "Source Code",
+                description: "GitHub repository with complete source code",
+                size: "8.7 MB",
+                icon: "fa-code",
+                downloadUrl: "#"
+            },
+            {
+                name: "Documentation",
+                description: "User manual and API documentation",
+                size: "2.3 MB",
+                icon: "fa-book",
+                downloadUrl: "#"
+            }
+        ];
+
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loaderContainer').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('fadeIn');
+            }, 2000); // 2 seconds loading time
+        });
+
+        // Generate download cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadCardsContainer = document.getElementById('downloadCards');
+            
+            files.forEach(file => {
+                const card = document.createElement('div');
+                card.className = 'download-card';
+                card.innerHTML = `
+                    <div class="icon">
+                        <i class="fas ${file.icon}"></i>
+                    </div>
+                    <div class="content">
+                        <h3>${file.name}</h3>
+                        <p>${file.description}</p>
+                        <p><small>Size: ${file.size}</small></p>
+                    </div>
+                    <button class="download-btn" data-url="${file.downloadUrl}">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                `;
+                downloadCardsContainer.appendChild(card);
+            });
+
+            // Add click event to download buttons
+            document.querySelectorAll('.download-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.dataset.url;
+                    // Replace with actual download logic
+                    alert('Downloading file from: ' + url);
+                    // window.location.href = url; // Uncomment for actual downloads
+                });
+            });
+        });
+    </script>
+    <script src="assets/js/3d-effects.js"></script>
+</body>
+</html> 
